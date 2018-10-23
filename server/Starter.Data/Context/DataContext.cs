@@ -1,8 +1,7 @@
-﻿using System.IO;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
+using Starter.Data.Config;
 using Starter.Data.Entities;
 
 namespace Starter.Data.Context
@@ -25,6 +24,7 @@ namespace Starter.Data.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new UserProfileConfig());
 
             base.OnModelCreating(modelBuilder);
         }

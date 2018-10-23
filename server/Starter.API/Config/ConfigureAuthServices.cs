@@ -16,7 +16,6 @@ namespace Starter.API.Config
 {
     public static class ConfigureAuthServices
     {
-
         public static IServiceCollection AddJwtAuthentication(this IServiceCollection services, IConfiguration config)
         {
             services.AddSingleton<IJwtFactory, JwtFactory>();
@@ -95,6 +94,5 @@ namespace Starter.API.Config
 
             return services;
         }
-
     }
 }
