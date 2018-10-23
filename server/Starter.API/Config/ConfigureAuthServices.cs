@@ -28,6 +28,7 @@ namespace Starter.API.Config
             var issuer = jwtAppSettingOptions[nameof(JwtIssuerOptions.Issuer)];
             var audience = jwtAppSettingOptions[nameof(JwtIssuerOptions.Audience)];
 
+            //todo: get secure secret key and store elsewhere
             string SecretKey = "iNivDmHLpUA223sqsfhqGbMRdRj1PVkH";
             SymmetricSecurityKey _signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(SecretKey));
 
