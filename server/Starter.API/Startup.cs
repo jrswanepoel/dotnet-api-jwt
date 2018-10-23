@@ -34,7 +34,7 @@ namespace Starter.API
 
             if (Environment.IsDevelopment())
             {
-                var dbInMemory = !Convert.ToBoolean(Configuration["DevUseInMemoryDb"]);
+                var dbInMemory = Convert.ToBoolean(Configuration["UseInMemoryDb"]);
                 if (!dbInMemory)
                     services.AddDataSqlServerDb(Configuration);
                 else

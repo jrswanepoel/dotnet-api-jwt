@@ -22,11 +22,13 @@ namespace Starter.Data.Context
 
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder builder)
         {
-            modelBuilder.ApplyConfiguration(new UserProfileConfig());
+            builder.ApplyConfiguration(new UserProfileConfig());
 
-            base.OnModelCreating(modelBuilder);
+            base.OnModelCreating(builder);
+
+            builder.ApplyIdentityConfiguration<string>();
         }
     }
 }

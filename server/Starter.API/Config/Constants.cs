@@ -11,8 +11,8 @@ namespace Starter.API.Config
 
         public static class Database
         {
-            public const string ContextSqlConnection = "StarterDb";
-            public const string ContextInMemoryConnection = "Memory_StarterDb";
+            public const string ContextSqlConnection = "Starter";
+            public const string ContextInMemoryConnection = "Memory_Starter";
         }
 
         public static class Jwt

@@ -11,6 +11,8 @@ namespace Starter.Data.Config
             builder.HasKey(m => m.Id)
                 .ForSqlServerIsClustered(true);
 
+            builder.ToTable("UserProfiles","ido");
+
             builder
                 .HasOne(u => u.Identity)
                 .WithOne(u => u.Profile)
