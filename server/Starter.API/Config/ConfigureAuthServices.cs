@@ -29,15 +29,15 @@ namespace Starter.API.Config
             var audience = jwtAppSettingOptions[nameof(JwtIssuerOptions.Audience)];
 
             //todo: get secure secret key and store elsewhere
-            string SecretKey = "iNivDmHLpUA223sqsfhqGbMRdRj1PVkH";
-            SymmetricSecurityKey _signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(SecretKey));
+            var SecretKey = "iNivDmHLpUA223sqsfhqGbMRdRj1PVkH";
+            var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(SecretKey));
 
             // Configure JwtIssuerOptions
             services.Configure<JwtIssuerOptions>(options =>
             {
                 options.Issuer = issuer;
                 options.Audience = audience;
-                options.SigningCredentials = new SigningCredentials(_signingKey, SecurityAlgorithms.HmacSha256);
+                options.SigningCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256);
             });
 
             var tokenValidationParameters = new TokenValidationParameters
@@ -49,7 +49,7 @@ namespace Starter.API.Config
                 ValidAudience = jwtAppSettingOptions[nameof(JwtIssuerOptions.Audience)],
 
                 ValidateIssuerSigningKey = true,
-                IssuerSigningKey = _signingKey,
+                IssuerSigningKey = signingKey,
 
                 RequireExpirationTime = false,
                 ValidateLifetime = true,
