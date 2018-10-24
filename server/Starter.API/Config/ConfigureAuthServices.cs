@@ -60,7 +60,8 @@ namespace Starter.API.Config
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(configureOptions =>
+            })
+            .AddJwtBearer(configureOptions =>
             {
                 configureOptions.ClaimsIssuer = jwtAppSettingOptions[nameof(JwtIssuerOptions.Issuer)];
                 configureOptions.TokenValidationParameters = tokenValidationParameters;
@@ -88,6 +89,7 @@ namespace Starter.API.Config
                 o.Password.RequireNonAlphanumeric = false;
                 o.Password.RequiredLength = 6;
             });
+
             var idBuilder = new IdentityBuilder(builder.UserType, typeof(IdentityRole), builder.Services);
             idBuilder
                 .AddEntityFrameworkStores<DataContext>()

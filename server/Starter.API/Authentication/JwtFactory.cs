@@ -6,7 +6,7 @@ using System.Security.Principal;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 
-using Starter.API.Config;
+using static Starter.API.Config.Constants.Jwt;
 
 namespace Starter.API.Authentication
 {
@@ -27,10 +27,10 @@ namespace Starter.API.Authentication
                  new Claim(JwtRegisteredClaimNames.Sub, userName),
                  new Claim(JwtRegisteredClaimNames.Jti, await _jwtOptions.JtiGenerator()),
                  new Claim(JwtRegisteredClaimNames.Iat, ToUnixEpochDate(_jwtOptions.IssuedAt).ToString(), ClaimValueTypes.Integer64),
-                 identity.FindFirst(Constants.Jwt.JwtClaimIdentifiers.Id)
+                 identity.FindFirst(JwtClaimIdentifiers.Id)
             };
             //Add all rol claims to JWT
-            claims.AddRange(identity.FindAll(Constants.Jwt.JwtClaimIdentifiers.Rol));
+            claims.AddRange(identity.FindAll(JwtClaimIdentifiers.Rol));
 
             // Create the JWT security token and encode it.
             var jwt = new JwtSecurityToken(
@@ -51,14 +51,14 @@ namespace Starter.API.Authentication
             //Grant all registered users API access
             var claimsList = new List<Claim>()
             {
-                new Claim(Constants.Jwt.JwtClaimIdentifiers.Id, id),
-                new Claim(Constants.Jwt.JwtClaimIdentifiers.Rol, Constants.Jwt.JwtClaims.ApiAccess)
+                new Claim(JwtClaimIdentifiers.Id, id),
+                new Claim(JwtClaimIdentifiers.Rol, JwtClaims.ApiAccess)
             };
             //Grant Special Privileges
             if (roles != null) //role condition
             {
                 foreach (var role in roles)
-                    claimsList.Add(new Claim(Constants.Jwt.JwtClaimIdentifiers.Rol, role));
+                    claimsList.Add(new Claim(JwtClaimIdentifiers.Rol, role));
             }
 
             return new ClaimsIdentity(new GenericIdentity(userName, "Token"), claimsList.ToArray());
