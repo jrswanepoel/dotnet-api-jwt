@@ -58,7 +58,7 @@ namespace Starter.API.Controllers
             return Ok();
         }
 
-        // POST api/auth/login
+        // POST api/accounts/login
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody]Account credentials)
         {

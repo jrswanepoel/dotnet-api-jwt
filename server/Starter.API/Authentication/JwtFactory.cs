@@ -41,6 +41,7 @@ namespace Starter.API.Authentication
                 expires: _jwtOptions.Expiration,
                 signingCredentials: _jwtOptions.SigningCredentials);
 
+            //todo investigate the reason a new token handler is generated.
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
 
             return encodedJwt;
