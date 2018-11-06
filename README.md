@@ -24,9 +24,9 @@ The database will be accessed by the Web API. For this implementation Entity Fra
 
 ## Running the Web API
 
-The Web API provides a secure method to access data for this application. It was written using ASP.NET Core 2.1.
+The Web API provides a secure method to access data for this application. It was written using ASP.NET Core.
 
     1. Run NuGet restore on the project to download any missing packages
     2. Follow the instructions on Migrating the EF Core Database
-            2.1 Alternatively, In Memory database option is available in appsettings.json
+        2.1 Alternatively, In Memory database option is available in appsettings.json
     3. Set the main API as the StartUp Project and Run
