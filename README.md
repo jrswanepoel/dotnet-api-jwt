@@ -17,7 +17,7 @@ The database will be accessed by the Web API. For this implementation Entity Fra
     3. Create the Database using SSMS or equivalent tool
     4. Open up the Nuget Package Manager Console
       4.1 Ensure that the API project is set as the StartUp Project 
-      4.2 Data project is selected Default Project in the PM Console drop down
+      4.2 Ensure that the Data project is selected Default Project in the PM Console drop down
       4.3 PM> add-migration {migrationName} - (Optional) to add any required changes for the database
       4.4 PM> update-database - if the migration file needs to be applied
 
