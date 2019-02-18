@@ -1,0 +1,90 @@
+using System;
+using System.IO;
+using System.Xml;
+using System.Xml.Linq;
+using System.Xml.Serialization;
+
+namespace Settlebug.Xml
+{
+    public class XmlParser
+    {
+        #region Constructors
+        public bool Indent { get; set; } = true;
+        public bool OmitHeaders { get; set; } = false;
+        public XmlParser()
+        {
+        }
+        #endregion
+
+        #region XML String
+        public string SerializeXml<T>(T value)
+        {
+            var emptyNamespaces = new XmlSerializerNamespaces(new[] { XmlQualifiedName.Empty });
+            var serializer = new XmlSerializer(typeof(T));
+            var settings = new XmlWriterSettings()
+            {
+                Indent = this.Indent,
+                OmitXmlDeclaration = this.OmitHeaders,
+            };
+
+            using (var stream = new StringWriter())
+            using (var writer = XmlWriter.Create(stream, settings))
+            {
+                if (OmitHeaders)
+                    serializer.Serialize(writer, value, emptyNamespaces);
+                else
+                    serializer.Serialize(writer, value);
+
+                return stream.ToString();
+            }
+        }
+
+        public T DeserializeXml<T>(string xml)
+        {
+            if (string.IsNullOrWhiteSpace(xml))
+                if (xml == null)
+                    throw new ArgumentNullException("xml");
+                else
+                    return default(T);
+
+            var serializer = new XmlSerializer(typeof(T));
+            using (var reader = new StringReader(xml))
+            {
+                return (T)serializer.Deserialize(reader);
+            }
+        }
+        #endregion
+
+        #region XElement
+        public XElement SerializeXmlElement<T>(T value)
+        {
+            var serializer = new XmlSerializer(typeof(XElement));
+            using (var stream = new MemoryStream())
+            {
+                serializer.Serialize(stream, value);
+                stream.Position = 0;
+
+                using (XmlReader reader = XmlReader.Create(stream))
+                {
+                    var element = XElement.Load(reader);
+                    return element;
+                }
+            }
+        }
+
+        public T DeserializeXml<T>(XElement xml)
+        {
+            var serializer = new XmlSerializer(typeof(XElement));
+            using (var stream = new MemoryStream())
+            {
+                serializer.Serialize(stream, xml);
+                stream.Position = 0;
+
+                serializer = new XmlSerializer(typeof(T));
+                var result = (T)serializer.Deserialize(stream);
+                return result;
+            }
+        }
+        #endregion
+    }
+}
